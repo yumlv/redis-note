@@ -19,4 +19,46 @@
 
 供redis处理子串和二进制位的命令
    
-   APPEND     
+   APPEND     APPEND key-name value  ---> 将值value追加到给定键key-name当前存储的值的末尾。
+   GETRANGE   GETRANGE key-name start end   ---> 获取一个由偏移量start至偏移量end范围内所有字符组成的子串，包括start 和 end 在内。
+   SETRANGE   SETRANGE  key-name offset value  ---> 将从start偏移量开始的子串设置为给定值。把其范围内的值覆盖。
+   GETBIT     GETBIT key-name offset   ---> 将字符串看作是二进制位串(bit string), 并返回位串中偏移量为offset的二进制位的值。
+   SETBIT     SETBIT key-name offset value ---> 将字符串看作是二进制位串，并将位串中偏移量为offset的二进制位的值设置为value。
+   BITCOUNT   BITCOUNT key-name [start end]  ---> 统计二进制位串里面值为1的二进制位的数量，如果给定了可选的start偏移量和end偏移量，那么只对偏移量指定范围内的
+       二进制位进行统计。
+   
+   
+   GETRANGE  和  SUBSTR  
+    redis现在的GETRANGE 命令是由以前的SUBSTR命令改名而来的。
+    在使用SETRANGE 或 SETBIT 命令对字符串进行写入的时候，如果字符串当前的长度不能满足写入的要求，那么redis会自动地使用空字节(null)来将字符串扩展至所需的长度，
+      然后才执行写入或者更新操作。在使用GETRANGE读取字符串的时候，超出字符串末尾的二进制位会被视为是空串。
+    
+  
+  redis的索引以0为开始，在进行范围访问时，范围的终点endpoint 默认也包含在这个范围之内。
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  #列表
+  redis的列表允许用户从序列的两端推入或弹出元素；列表可以用来存储任务信息、最近浏览过的文章、常用联系人信息。
+  
+  一些常用的列表命令:
+     
+     RPUSH   RPUSH  key-name  value [value ... ]   -----> 将一个或多个值推入列表的右端。
+     LPUSH   LPUSH  key-name  value [value ... ]   -----> 将一个或多个值推入列表的左端。
+     RPOP    RPOP   key-name                       -----> 移除并返回列表最右端的元素。
+     LPOP    LPOP   key-name                       -----> 移除并返回列表最左端的元素。
+     LINDEX  LINDEX  key-name   offset             -----> 返回列表中偏移量为offset的元素。
+     LRANGE  LRANGE key-name start end             -----> 返回列表从start偏移量到end偏移量范围内的 所有 元素，
+       其中偏移量为srtart和偏移量为end的元素也会包含在被返回的元素之内。
+     LTRIM   LTRIM key-name start end              -----> 对列表进行修剪，只保留从start 偏移量到end偏移量范围内的元素，其中偏移量为start和偏移量为end
+                                                            的元素也会被保留。
+    
+   
